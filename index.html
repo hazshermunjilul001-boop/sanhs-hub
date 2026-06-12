@@ -11,861 +11,715 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:   #0B1F3A;
-      --gold:   #F5A623;
-      --gold2:  #FFD07A;
-      --white:  #FFFFFF;
-      --slate:  #E8EEF6;
-      --muted:  #8FA3BF;
-      --card-bg:#F0F5FB;
-      --radius: 18px;
-      --shadow: 0 8px 32px rgba(11,31,58,0.13);
+      --green:      #00FF41;
+      --green-dim:  #00C030;
+      --green-dark: #006618;
+      --green-glow: rgba(0,255,65,0.25);
+      --black:      #000000;
+      --panel-bg:   rgba(0, 20, 5, 0.72);
+      --white:      #FFFFFF;
+      --gold:       #F5A623;
+      --radius:     14px;
     }
 
-    html { scroll-behavior: smooth; }
-
-    body {
+    html, body {
+      height: 100%;
       font-family: 'Inter', sans-serif;
-      background: var(--slate);
-      color: var(--navy);
-      min-height: 100vh;
+      background: #000;
+      color: var(--green);
+      overflow-x: hidden;
     }
 
-    /* ── HERO ── */
-    .hero {
-      background: linear-gradient(135deg, var(--navy) 60%, #163566 100%);
-      padding: 56px 24px 64px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+    /* ════════════════════════════════
+       BACKGROUND
+    ════════════════════════════════ */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      /* YOUR GREEN BACKGROUND IMAGE GOES HERE */
+      /* Replace "bg.webp" with your actual file name */
+      background-image: url('bg.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
-    .hero::before {
+    /* Fallback matrix-style gradient if bg.webp not loaded */
+    .bg-layer::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(245,166,35,0.18) 0%, transparent 70%);
-      pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,80,20,0.55) 0%, #000 100%);
     }
-    .hero-badge {
-      display: inline-block;
-      background: rgba(245,166,35,0.18);
-      border: 1.5px solid var(--gold);
-      color: var(--gold2);
+    /* Dark vignette overlay for readability */
+    .bg-layer::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+    }
+
+    /* ════════════════════════════════
+       PAGE WRAPPER
+    ════════════════════════════════ */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px 60px;
+      gap: 36px;
+    }
+
+    /* ════════════════════════════════
+       HEADER
+    ════════════════════════════════ */
+    .header {
+      text-align: center;
+      max-width: 700px;
+    }
+    .header-badge {
       font-family: 'Inter', sans-serif;
       font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      padding: 5px 14px;
-      border-radius: 99px;
-      margin-bottom: 20px;
+      color: var(--green-dim);
+      margin-bottom: 10px;
     }
-    .hero h1 {
+    .header h1 {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 6vw, 3.4rem);
+      font-size: clamp(1.9rem, 5vw, 3rem);
       font-weight: 800;
       color: var(--white);
+      letter-spacing: -0.01em;
       line-height: 1.1;
-      margin-bottom: 10px;
-      letter-spacing: -0.02em;
+      text-shadow: 0 0 30px var(--green-glow), 0 0 60px rgba(0,255,65,0.12);
+      margin-bottom: 12px;
     }
-    .hero h1 span {
-      color: var(--gold);
-    }
-    .hero-sub {
-      color: var(--muted);
-      font-size: 1.05rem;
-      max-width: 540px;
-      margin: 0 auto 28px;
+    .header h1 span { color: var(--green); }
+    .header-sub {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.95rem;
       line-height: 1.6;
+      margin-bottom: 18px;
     }
-    .hero-meta {
+    .header-meta {
       display: flex;
       justify-content: center;
-      gap: 24px;
+      gap: 22px;
       flex-wrap: wrap;
     }
-    .hero-meta span {
-      color: rgba(255,255,255,0.55);
-      font-size: 0.8rem;
+    .header-meta span {
+      font-size: 0.75rem;
+      color: var(--green-dim);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
-    .hero-meta span::before {
-      content: '●';
-      color: var(--gold);
-      font-size: 0.55rem;
-    }
-
-    /* ── SECTION ── */
-    .section {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 56px 20px 80px;
-    }
-    .section-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      font-weight: 800;
-      color: var(--navy);
-      margin-bottom: 40px;
+    .header-meta span::before {
+      content: '◆';
+      font-size: 0.45rem;
+      color: var(--green);
     }
 
-    /* ── GRID ── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 28px;
-    }
-
-    /* ── CARD ── */
-    .card {
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+    /* ════════════════════════════════
+       ICON GRID  (3-2-2 layout)
+    ════════════════════════════════ */
+    .icon-grid {
+      background: var(--panel-bg);
+      border: 1px solid rgba(0,255,65,0.18);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      padding: 36px 40px 32px;
+      box-shadow:
+        0 0 0 1px rgba(0,255,65,0.06),
+        0 8px 48px rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(0,255,65,0.08);
       display: flex;
       flex-direction: column;
-      transition: transform 0.28s cubic-bezier(.25,.8,.25,1), box-shadow 0.28s;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
-      position: relative;
+      gap: 28px;
+      max-width: 640px;
+      width: 100%;
     }
-    .card:hover {
-      transform: translateY(-7px) scale(1.012);
-      box-shadow: 0 20px 52px rgba(11,31,58,0.19);
+    .grid-label {
+      text-align: center;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--green-dim);
+      opacity: 0.7;
     }
-    .card:hover .card-thumb-overlay {
-      opacity: 1;
+    .icon-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
-    /* ── ANIMATED THUMBNAIL ── */
-    .card-thumb {
+    /* ── SINGLE ICON BUTTON ── */
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      width: 110px;
+      flex-shrink: 0;
+      transition: transform 0.22s;
+    }
+    .icon-btn:hover { transform: translateY(-4px); }
+    .icon-btn:hover .icon-circle {
+      background: rgba(0,255,65,0.18);
+      border-color: var(--green);
+      box-shadow: 0 0 20px var(--green-glow), 0 0 40px rgba(0,255,65,0.10);
+    }
+    .icon-btn:hover .icon-circle svg {
+      filter: drop-shadow(0 0 6px var(--green));
+    }
+    .icon-btn:hover .icon-name { color: var(--white); }
+
+    .icon-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      background: rgba(0,255,65,0.08);
+      border: 1.5px solid rgba(0,255,65,0.30);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.22s, border-color 0.22s, box-shadow 0.22s;
+    }
+    .icon-circle svg {
+      width: 36px;
+      height: 36px;
+      stroke: var(--green);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: filter 0.22s;
+    }
+    .icon-name {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      line-height: 1.3;
+      font-weight: 500;
+      transition: color 0.22s;
+    }
+
+    /* ════════════════════════════════
+       FOOTER LINKS
+    ════════════════════════════════ */
+    .footer {
+      text-align: center;
+      color: rgba(0,255,65,0.40);
+      font-size: 0.72rem;
+      line-height: 1.8;
+    }
+    .footer strong { color: var(--green-dim); }
+
+    /* ════════════════════════════════
+       MODAL OVERLAY
+    ════════════════════════════════ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* ── MODAL CARD ── */
+    .modal-card {
+      background: #050E07;
+      border: 1px solid rgba(0,255,65,0.25);
+      border-radius: 20px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      box-shadow: 0 0 60px rgba(0,255,65,0.12), 0 24px 80px rgba(0,0,0,0.8);
+      transform: scale(0.93);
+      transition: transform 0.28s cubic-bezier(.25,.8,.25,1);
+      scrollbar-width: thin;
+      scrollbar-color: var(--green-dark) transparent;
+    }
+    .modal-overlay.open .modal-card {
+      transform: scale(1);
+    }
+
+    /* ── SCREENSHOT SLIDESHOW ── */
+    .modal-thumb {
       position: relative;
       width: 100%;
       aspect-ratio: 16/9;
       overflow: hidden;
-      background: var(--navy);
-    }
-    .card-thumb-frames {
-      display: flex;
-      width: 300%;
-      height: 100%;
-      animation: slideFrames 4.5s steps(1) infinite;
-    }
-    .card-thumb-frame {
-      width: 33.333%;
-      height: 100%;
+      background: #000;
+      border-radius: 20px 20px 0 0;
       flex-shrink: 0;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
     }
-
-    /* Each app has 3 frames defined in the data-app color sets */
-    /* Frame colours are set via inline CSS variables on .card-thumb */
-    .card-thumb-frame:nth-child(1) { background: var(--f1); }
-    .card-thumb-frame:nth-child(2) { background: var(--f2); }
-    .card-thumb-frame:nth-child(3) { background: var(--f3); }
-
-    @keyframes slideFrames {
-      0%   { transform: translateX(0%); }
-      33%  { transform: translateX(-33.333%); }
-      66%  { transform: translateX(-66.666%); }
-      100% { transform: translateX(0%); }
-    }
-
-    /* UI mockup inside each frame */
-    .mock {
-      width: 88%;
-      height: 78%;
-      background: rgba(255,255,255,0.10);
-      border-radius: 10px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      border: 1px solid rgba(255,255,255,0.15);
-      backdrop-filter: blur(2px);
-    }
-    .mock-bar {
-      height: 8px;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.35);
-      width: 60%;
-    }
-    .mock-bar.short { width: 35%; }
-    .mock-bar.full  { width: 90%; }
-    .mock-row {
-      display: flex;
-      gap: 6px;
-      flex: 1;
-    }
-    .mock-block {
-      flex: 1;
-      background: rgba(255,255,255,0.14);
-      border-radius: 6px;
-    }
-    .mock-block.sm { flex: 0.55; }
-    .mock-label {
-      position: absolute;
-      bottom: 14px;
-      left: 14px;
-      font-family: 'Syne', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.8);
-      background: rgba(0,0,0,0.30);
-      padding: 3px 8px;
-      border-radius: 5px;
-    }
-    .card-thumb-overlay {
+    .modal-thumb-img {
       position: absolute;
       inset: 0;
-      background: rgba(11,31,58,0.55);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       opacity: 0;
-      transition: opacity 0.22s;
+      z-index: 1;
     }
-    .launch-btn {
-      background: var(--gold);
-      color: var(--navy);
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      padding: 10px 26px;
-      border-radius: 99px;
-      letter-spacing: 0.03em;
+    .modal-thumb-img:nth-child(1) { animation: fadeSlide 9s 0s infinite; }
+    .modal-thumb-img:nth-child(2) { animation: fadeSlide 9s 3s infinite; }
+    .modal-thumb-img:nth-child(3) { animation: fadeSlide 9s 6s infinite; }
+    @keyframes fadeSlide {
+      0%   { opacity: 0; }
+      5%   { opacity: 1; }
+      30%  { opacity: 1; }
+      35%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    /* Dot indicators */
+    .slide-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 5;
+    }
+    .slide-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+    }
+    .slide-dot:nth-child(1) { animation: dotPulse 9s 0s infinite; }
+    .slide-dot:nth-child(2) { animation: dotPulse 9s 3s infinite; }
+    .slide-dot:nth-child(3) { animation: dotPulse 9s 6s infinite; }
+    @keyframes dotPulse {
+      0%,4%  { background: rgba(255,255,255,0.4); }
+      5%,31% { background: var(--green); }
+      32%,100% { background: rgba(255,255,255,0.4); }
+    }
+    /* Fallback color */
+    .modal-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--thumb-color, #051A08);
+      z-index: 0;
     }
 
-    /* ── CARD BODY ── */
-    .card-body {
-      padding: 20px 22px 22px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    /* ── MODAL BODY ── */
+    .modal-body {
+      padding: 24px 28px 28px;
     }
-    .card-tag {
+    .modal-tag {
       display: inline-block;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       padding: 3px 10px;
       border-radius: 99px;
-      background: var(--slate);
-      color: var(--muted);
+      background: rgba(0,255,65,0.10);
+      color: var(--green-dim);
+      border: 1px solid rgba(0,255,65,0.20);
+      margin-bottom: 10px;
     }
-    .card-title {
+    .modal-title {
       font-family: 'Syne', sans-serif;
-      font-size: 1.08rem;
-      font-weight: 700;
-      color: var(--navy);
-      line-height: 1.3;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 14px;
     }
-    .card-desc {
-      font-size: 0.87rem;
-      color: #5A7490;
-      line-height: 1.65;
-      flex: 1;
+    .modal-desc {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.75;
+      margin-bottom: 24px;
     }
-    .card-footer {
+    .modal-actions {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-top: 6px;
-      padding-top: 14px;
-      border-top: 1px solid var(--slate);
+      gap: 14px;
+      flex-wrap: wrap;
     }
-    .card-url {
-      font-size: 0.72rem;
-      color: var(--muted);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      max-width: 200px;
+    .btn-launch {
+      display: inline-block;
+      background: var(--green);
+      color: #000;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 12px 28px;
+      border-radius: 99px;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: background 0.18s, box-shadow 0.18s;
+      box-shadow: 0 0 16px rgba(0,255,65,0.35);
     }
-    .card-arrow {
-      width: 30px;
-      height: 30px;
+    .btn-launch:hover {
+      background: #33ff77;
+      box-shadow: 0 0 28px rgba(0,255,65,0.55);
+    }
+    .btn-close {
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.6);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 12px 22px;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+    .btn-close:hover {
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+    }
+    .modal-url {
+      font-size: 0.7rem;
+      color: rgba(0,255,65,0.40);
+      margin-left: auto;
+      text-align: right;
+    }
+
+    /* ── CLOSE X ── */
+    .modal-x {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      z-index: 20;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(0,255,65,0.2);
+      color: rgba(255,255,255,0.7);
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      background: var(--slate);
+      font-size: 1.1rem;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      transition: background 0.2s, transform 0.2s;
+      line-height: 1;
+      transition: background 0.18s, color 0.18s;
     }
-    .card:hover .card-arrow {
-      background: var(--gold);
-      transform: translateX(3px);
-    }
-    .card-arrow svg { width: 14px; height: 14px; }
-
-    /* ── DIVIDER ── */
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(11,31,58,0.1), transparent);
-      margin: 0 20px;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--navy);
-      color: rgba(255,255,255,0.45);
-      text-align: center;
-      padding: 30px 24px;
-      font-size: 0.8rem;
-      line-height: 1.7;
-    }
-    footer strong { color: var(--gold); }
+    .modal-x:hover { background: rgba(255,0,0,0.3); color: #fff; }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
-      .grid { grid-template-columns: 1fr; }
-      .hero { padding: 40px 16px 48px; }
-      .section { padding: 40px 16px 60px; }
+    @media (max-width: 600px) {
+      .icon-grid { padding: 24px 16px 20px; }
+      .icon-btn { width: 85px; }
+      .icon-circle { width: 66px; height: 66px; }
+      .icon-circle svg { width: 28px; height: 28px; }
+      .icon-name { font-size: 0.65rem; }
+      .modal-body { padding: 18px 18px 22px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .card-thumb-frames { animation: none; }
-      .card { transition: none; }
+      .modal-thumb-img { animation: none; }
+      .modal-thumb-img:nth-child(1) { opacity: 1; }
     }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
-<header class="hero">
-  <div class="hero-badge">DepEd Region XI · Division of Davao City</div>
-  <h1>SANHS <span>Teacher</span><br>Innovation Hub</h1>
-  <p class="hero-sub">
-    One place for all digital tools developed for Sta. Ana National High School teachers and staff. Click any app to launch it instantly.
-  </p>
-  <div class="hero-meta">
-    <span>SY 2026–2027</span>
-    <span>7 Active Tools</span>
-    <span>100% Free to Use</span>
-  </div>
-</header>
+<!-- ══ BACKGROUND ══ -->
+<div class="bg-layer"></div>
+<!-- 📌 BACKGROUND FILE: rename your green design to "bg.webp" and place it in the same folder as index.html -->
 
-<div class="divider"></div>
+<!-- ══ PAGE ══ -->
+<div class="page">
 
-<!-- ═══════════════════════════ OUR TOOLS ═══════════════════════════ -->
-<main class="section">
-  <div class="section-label">SANHS-Built Innovations</div>
-  <div class="section-title">School-Developed Web Apps</div>
+  <!-- ═══════ HEADER ═══════ -->
+  <header class="header">
+    <div class="header-badge">DepEd Region XI · Division of Davao City</div>
+    <h1>SANHS <span>Teacher</span><br>Innovation Hub</h1>
+    <p class="header-sub">
+      One place for all digital tools developed for Sta. Ana National High School<br>teachers and staff. Click any app to launch it instantly.
+    </p>
+    <div class="header-meta">
+      <span>SY 2026–2027</span>
+      <span>7 Active Tools</span>
+      <span>100% Free to Use</span>
+    </div>
+  </header>
 
-  <div class="grid" id="our-apps">
+  <!-- ═══════ ICON GRID ═══════ -->
+  <div class="icon-grid">
+    <div class="grid-label">— Choose an App —</div>
 
-    <!-- ── CARD 1: SANHS Digitalized Learning Resources Hub ── -->
-    <a class="card"
-       href="https://sanhs-lrhub.pages.dev/"
-       target="_blank" rel="noopener"
-       data-app="lrhub">
-      <div class="card-thumb"
-           style="--f1:#1B4B8A; --f2:#16396E; --f3:#0D2B55;">
-        <div class="card-thumb-frames">
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar"></div>
-              <div class="mock-bar short"></div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-              </div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-              </div>
-            </div>
-            <span class="mock-label">Resource Library</span>
-          </div>
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar full"></div>
-              <div class="mock-row">
-                <div class="mock-block sm"></div>
-                <div class="mock-block"></div>
-              </div>
-              <div class="mock-bar short"></div>
-              <div class="mock-bar"></div>
-            </div>
-            <span class="mock-label">Browse Materials</span>
-          </div>
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar"></div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-              </div>
-              <div class="mock-bar short"></div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-                <div class="mock-block sm"></div>
-              </div>
-            </div>
-            <span class="mock-label">Upload & Share</span>
-          </div>
+    <!-- Row 1: 3 icons -->
+    <div class="icon-row">
+
+      <!-- 1. Learning Resource Hub -->
+      <button class="icon-btn" onclick="openModal('lrhub')">
+        <div class="icon-circle">
+          <!-- Book / library icon -->
+          <svg viewBox="0 0 24 24"><path d="M4 19V6a2 2 0 012-2h13"/><path d="M4 19a2 2 0 002 2h13V4"/><path d="M9 10h6M9 14h4"/></svg>
         </div>
-        <div class="card-thumb-overlay"><span class="launch-btn">Launch App →</span></div>
+        <span class="icon-name">Learning Resource Hub</span>
+      </button>
+
+      <!-- 2. SMART SANHS Enrollment -->
+      <button class="icon-btn" onclick="openModal('enrollment')">
+        <div class="icon-circle">
+          <!-- User + clipboard icon -->
+          <svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><path d="M9 2h6v4H9z"/><path d="M9 12h6M9 16h4"/></svg>
+        </div>
+        <span class="icon-name">SMART SANHS Enrollment</span>
+      </button>
+
+      <!-- 3. Dept Heads Monitoring -->
+      <button class="icon-btn" onclick="openModal('depthead')">
+        <div class="icon-circle">
+          <!-- Checklist / monitoring icon -->
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <span class="icon-name">Dept Heads Monitoring</span>
+      </button>
+
+    </div>
+
+    <!-- Row 2: 2 icons -->
+    <div class="icon-row">
+
+      <!-- 4. TeacherHub PH -->
+      <button class="icon-btn" onclick="openModal('teacherhub')">
+        <div class="icon-circle">
+          <!-- Dashboard / grid icon -->
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <span class="icon-name">TeacherHub PH</span>
+      </button>
+
+      <!-- 5. ILAW Lesson Plan -->
+      <button class="icon-btn" onclick="openModal('ilaw')">
+        <div class="icon-circle">
+          <!-- Lightbulb / AI icon -->
+          <svg viewBox="0 0 24 24"><path d="M9 21h6"/><path d="M12 3a6 6 0 016 6c0 2.22-1.21 4.16-3 5.2V18H9v-3.8A6 6 0 0112 3z"/></svg>
+        </div>
+        <span class="icon-name">ILAW LP Generator</span>
+      </button>
+
+    </div>
+
+    <!-- Row 3: 2 icons -->
+    <div class="icon-row">
+
+      <!-- 6. LIS -->
+      <button class="icon-btn" onclick="openModal('lis')">
+        <div class="icon-circle">
+          <!-- Database / gov icon -->
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v4c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 9v4c0 1.66 4.03 3 9 3s9-1.34 9-3V9"/><path d="M3 13v4c0 1.66 4.03 3 9 3s9-1.34 9-3v-4"/></svg>
+        </div>
+        <span class="icon-name">DepEd LIS</span>
+      </button>
+
+      <!-- 7. Ependot -->
+      <button class="icon-btn" onclick="openModal('ependot')">
+        <div class="icon-circle">
+          <!-- Shield / secure data icon -->
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <span class="icon-name">Ependot App</span>
+      </button>
+
+    </div>
+  </div><!-- /icon-grid -->
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer class="footer">
+    Built with ❤️ by <strong>Hazsher B. Munjilul</strong> ·
+    Sta. Ana NHS · DepEd Region XI, Division of Davao City<br>
+    <span style="opacity:0.5;">All tools are free. Developed independently for the benefit of SANHS teachers.</span>
+  </footer>
+
+</div><!-- /page -->
+
+<!-- ════════════════════════════════════════════════════════════
+     MODAL
+     Each app's data is stored in the JS object below.
+     IMAGE NAMES (place in same folder as index.html):
+       lrhub      → lrhub-1.webp, lrhub-2.webp, lrhub-3.webp
+       enrollment → enrollment-1.webp, enrollment-2.webp, enrollment-3.webp
+       depthead   → depthead-1.webp, depthead-2.webp, depthead-3.webp
+       teacherhub → teacherhub-1.webp, teacherhub-2.webp, teacherhub-3.webp
+       ilaw       → ilaw-1.webp, ilaw-2.webp, ilaw-3.webp
+       lis        → lis-1.webp, lis-2.webp, lis-3.webp
+       ependot    → ependot-1.webp, ependot-2.webp, ependot-3.webp
+     BACKGROUND:
+       Rename your green design file to "bg.webp"
+════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal-card" id="modal-card">
+    <button class="modal-x" onclick="closeModal()">✕</button>
+    <div class="modal-thumb" id="modal-thumb">
+      <img class="modal-thumb-img" id="img1" src="" alt="" />
+      <img class="modal-thumb-img" id="img2" src="" alt="" />
+      <img class="modal-thumb-img" id="img3" src="" alt="" />
+      <div class="slide-dots">
+        <div class="slide-dot"></div>
+        <div class="slide-dot"></div>
+        <div class="slide-dot"></div>
       </div>
-      <div class="card-body">
-        <span class="card-tag">Learning Resources</span>
-        <div class="card-title">SANHS Digitalized Learning Resources Hub</div>
-        <p class="card-desc">
-          <!-- ✏️ SANHS Digitalized Learning Resources Hub is a one-of-a-kind web-based learning platform built by our teachers specifically for our students. It brings together everything learners need in one easy link: PISA-like assessments, interactive materials, teacher-made video lessons, SLMs, LAMBO, ARAL, Learning Packets, storybooks, comics, and locally developed content — all free, accessible, and regularly updated.
-This isn’t just a website; it’s an innovative learning hub created out of love for our learners, eliminating excuses and empowering every student to succeed. -->
-          A centralized digital repository where teachers can organize, and share instructional materials, modules, and references across all subject areas and grade levels.
-        </p>
-        <div class="card-footer">
-          <span class="card-url">sanhs-lrhub.pages.dev</span>
-          <span class="card-arrow">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </span>
-        </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tag" id="modal-tag"></div>
+      <div class="modal-title" id="modal-title"></div>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-actions">
+        <a class="btn-launch" id="modal-launch" href="#" target="_blank" rel="noopener">Launch App →</a>
+        <button class="btn-close" onclick="closeModal()">Close</button>
+        <span class="modal-url" id="modal-url"></span>
       </div>
-    </a>
-
-    <!-- ── CARD 2: SMART SANHS Digitalized Enrollment ── -->
-    <a class="card"
-       href="https://sanhs-enrollment-2026-production.up.railway.app/"
-       target="_blank" rel="noopener"
-       data-app="enrollment">
-      <div class="card-thumb"
-           style="--f1:#1A6B3C; --f2:#135730; --f3:#0D4325;">
-        <div class="card-thumb-frames">
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar full"></div>
-              <div class="mock-bar"></div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-                <div class="mock-block sm"></div>
-              </div>
-              <div class="mock-bar short"></div>
-            </div>
-            <span class="mock-label">Student Form</span>
-          </div>
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar"></div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-              </div>
-              <div class="mock-bar short"></div>
-              <div class="mock-bar full"></div>
-            </div>
-            <span class="mock-label">Enrollment List</span>
-          </div>
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar short"></div>
-              <div class="mock-row">
-                <div class="mock-block sm"></div>
-                <div class="mock-block"></div>
-              </div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-              </div>
-              <div class="mock-bar"></div>
-            </div>
-            <span class="mock-label">Reports</span>
-          </div>
-        </div>
-        <div class="card-thumb-overlay"><span class="launch-btn">Launch App →</span></div>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">Enrollment System</span>
-        <div class="card-title">SMART SANHS — Digitalized Enrollment</div>
-        <p class="card-desc">
-          <!-- ✏️ SMART SANHS v2.0 is a powerful, user-friendly student enrollment system developed by a teacher for Sta. Ana National High School (Cluster 1, Davao City). Parents can now enroll their children from the comfort of home — no long lines, no heat exposure, and no need to take half-day leave from work.
-The system handles everything in one seamless platform: student registration, photo capture, ID generation, and management of 145 sections with zero data errors — all built at zero software cost. This isn’t just an enrollment tool; it’s proof that public schools can innovate and deliver a future-ready experience. -->
-          A fully digital enrollment system that streamlines the student registration process, manages learner records, and generates enrollment reports—eliminating paperwork and saving hours during enrollment season.
-        </p>
-        <div class="card-footer">
-          <span class="card-url">railway.app · SMART SANHS</span>
-          <span class="card-arrow">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </span>
-        </div>
-      </div>
-    </a>
-
-    <!-- ── CARD 3: Dept Heads ── -->
-    <a class="card"
-       href="https://sanhs-walkthrough.pages.dev/"
-       target="_blank" rel="noopener"
-       data-app="depthead">
-      <div class="card-thumb"
-           style="--f1:#7B2D8B; --f2:#612270; --f3:#481958;">
-        <div class="card-thumb-frames">
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar"></div>
-              <div class="mock-row">
-                <div class="mock-block sm"></div>
-                <div class="mock-block"></div>
-              </div>
-              <div class="mock-bar full"></div>
-              <div class="mock-bar short"></div>
-            </div>
-            <span class="mock-label">Department View</span>
-          </div>
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar short"></div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-              </div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-                <div class="mock-block sm"></div>
-                <div class="mock-block sm"></div>
-              </div>
-            </div>
-            <span class="mock-label">Monitoring</span>
-          </div>
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar full"></div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-              </div>
-              <div class="mock-bar"></div>
-              <div class="mock-bar short"></div>
-            </div>
-            <span class="mock-label">Walkthrough Log</span>
-          </div>
-        </div>
-        <div class="card-thumb-overlay"><span class="launch-btn">Launch App →</span></div>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">Admin Monitoring</span>
-        <div class="card-title">SANHS Dept Heads Monitoring Tool</div>
-        <p class="card-desc">
-          <!-- ✏️ This is a ready-made DepEd-style instructional supervision & monitoring tool designed for Head Teachers / Department Heads to conduct daily walkthroughs. It is not a teacher evaluation tool per se — it is a quick-check monitoring instrument that covers four Key Result Areas (KRAs) from DepEd. -->
-          A monitoring dashboard for department heads to log classroom walkthroughs, track instructional observations, and compile compliance data for RPMS and school quality assurance activities.
-        </p>
-        <div class="card-footer">
-          <span class="card-url">sanhs-walkthrough.pages.dev</span>
-          <span class="card-arrow">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </span>
-        </div>
-      </div>
-    </a>
-
-    <!-- ── CARD 4: TeacherHub PH ── -->
-    <a class="card"
-       href="https://teacherhub-one.vercel.app/"
-       target="_blank" rel="noopener"
-       data-app="teacherhub">
-      <div class="card-thumb"
-           style="--f1:#C0392B; --f2:#A93226; --f3:#8E2420;">
-        <div class="card-thumb-frames">
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar full"></div>
-              <div class="mock-row">
-                <div class="mock-block sm"></div>
-                <div class="mock-block"></div>
-              </div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-              </div>
-            </div>
-            <span class="mock-label">E-Class Record</span>
-          </div>
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar"></div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-                <div class="mock-block sm"></div>
-              </div>
-              <div class="mock-bar short"></div>
-              <div class="mock-bar full"></div>
-            </div>
-            <span class="mock-label">SF Forms</span>
-          </div>
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar short"></div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-              </div>
-              <div class="mock-bar"></div>
-              <div class="mock-row">
-                <div class="mock-block sm"></div>
-                <div class="mock-block"></div>
-              </div>
-            </div>
-            <span class="mock-label">Awards & Reports</span>
-          </div>
-        </div>
-        <div class="card-thumb-overlay"><span class="launch-btn">Launch App →</span></div>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">All-in-One Teacher Tool</span>
-        <div class="card-title">TeacherHub PH — DepEd All-in-1 Tool</div>
-        <p class="card-desc">
-          <!-- ✏️ TeacherHub PH is an all-in-one web-based teacher’s companion designed to simplify and automate the daily workload of Filipino public school teachers under the Revised K-12 Curriculum.
-From Class Records with automatic computations (WW, PT, Term Assessment, and transmutation), SF2 attendance with monthly auto-generated forms and 5-day absence alerts, to MPS/Item Analysis, SF8 Health & Nutrition (with auto BMI and WHO classification), Behavior Records, and instant SF9 Report Cards — everything is seamlessly integrated.
-Just import your SF1 from LIS, manage multiple sections with one click, and generate accurate grades, reports, and exports in seconds. No installation needed — just open your browser and teach smarter. -->
-          The flagship all-in-one platform for DepEd teachers featuring E-Class Records, School Form generation (SF1–SF10), Academic Excellence Awards tracking, student status management, and subject teacher collaboration tools.
-        </p>
-        <div class="card-footer">
-          <span class="card-url">teacherhub-one.vercel.app</span>
-          <span class="card-arrow">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </span>
-        </div>
-      </div>
-    </a>
-
-    <!-- ── CARD 5: ILAW Lesson Plan ── -->
-    <a class="card"
-       href="https://ilawlpgenerator.vercel.app/"
-       target="_blank" rel="noopener"
-       data-app="ilaw">
-      <div class="card-thumb"
-           style="--f1:#D4820A; --f2:#B56D08; --f3:#935906;">
-        <div class="card-thumb-frames">
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar full"></div>
-              <div class="mock-bar"></div>
-              <div class="mock-row">
-                <div class="mock-block sm"></div>
-                <div class="mock-block"></div>
-              </div>
-              <div class="mock-bar short"></div>
-            </div>
-            <span class="mock-label">Input Details</span>
-          </div>
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar short"></div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-                <div class="mock-block sm"></div>
-              </div>
-              <div class="mock-bar full"></div>
-              <div class="mock-bar"></div>
-            </div>
-            <span class="mock-label">AI Generation</span>
-          </div>
-          <div class="card-thumb-frame">
-            <div class="mock">
-              <div class="mock-bar"></div>
-              <div class="mock-row">
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-              </div>
-              <div class="mock-bar full"></div>
-              <div class="mock-bar short"></div>
-            </div>
-            <span class="mock-label">Download DOCX</span>
-          </div>
-        </div>
-        <div class="card-thumb-overlay"><span class="launch-btn">Launch App →</span></div>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">AI-Powered Tool</span>
-        <div class="card-title">ILAW Lesson Plan Generator</div>
-        <p class="card-desc">
-          <!-- ✏️ ILAW Lesson Plan Generator is a free web app built by a teacher for fellow Filipino educators who are tired of spending hours making lesson plans after a long day at school.
-In just 30 seconds, it generates a complete, ready-to-use ILAW-format lesson plan — with proper English for Math, English, Science, MAPEH, and TLE/EPP, and natural Tagalog for AP, Filipino, and EsP. Every plan includes remediation and enrichment activities for differentiated instruction, plus contextualized and localized content.
-Simply download it as a .docx file and you’re good to go. No signup, no payment — just pure support for teachers. -->
-          An AI-powered lesson plan generator that produces DepEd ILAW-format lesson plans compliant with DO 016 s.2026. Simply enter your subject details and let the AI draft a complete, downloadable DOCX lesson plan in seconds.
-        </p>
-        <div class="card-footer">
-          <span class="card-url">ilawlpgenerator.vercel.app</span>
-          <span class="card-arrow">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </span>
-        </div>
-      </div>
-    </a>
-
-  </div><!-- /grid our-apps -->
-</main>
-
-<!-- ═══════════════════════════ DepEd PARTNER SITES ═══════════════════════════ -->
-<div style="background: var(--white); border-top: 1px solid var(--slate);">
-  <div class="section" style="padding-top: 48px; padding-bottom: 72px;">
-    <div class="section-label">DepEd National & District Links</div>
-    <div class="section-title">Partner Platforms</div>
-
-    <div class="grid" id="partner-apps">
-
-      <!-- ── CARD 6: LIS ── -->
-      <a class="card"
-         href="https://lis.deped.gov.ph/uis/login"
-         target="_blank" rel="noopener"
-         data-app="lis">
-        <div class="card-thumb"
-             style="--f1:#003087; --f2:#002368; --f3:#00154A;">
-          <div class="card-thumb-frames">
-            <div class="card-thumb-frame">
-              <div class="mock">
-                <div class="mock-bar full"></div>
-                <div class="mock-bar"></div>
-                <div class="mock-row">
-                  <div class="mock-block"></div>
-                  <div class="mock-block"></div>
-                  <div class="mock-block"></div>
-                </div>
-              </div>
-              <span class="mock-label">LIS Login</span>
-            </div>
-            <div class="card-thumb-frame">
-              <div class="mock">
-                <div class="mock-bar"></div>
-                <div class="mock-row">
-                  <div class="mock-block sm"></div>
-                  <div class="mock-block"></div>
-                </div>
-                <div class="mock-bar short"></div>
-                <div class="mock-bar full"></div>
-              </div>
-              <span class="mock-label">Learner Search</span>
-            </div>
-            <div class="card-thumb-frame">
-              <div class="mock">
-                <div class="mock-bar short"></div>
-                <div class="mock-row">
-                  <div class="mock-block"></div>
-                </div>
-                <div class="mock-bar"></div>
-                <div class="mock-row">
-                  <div class="mock-block"></div>
-                  <div class="mock-block sm"></div>
-                </div>
-              </div>
-              <span class="mock-label">Student Profile</span>
-            </div>
-          </div>
-          <div class="card-thumb-overlay"><span class="launch-btn">Open Portal →</span></div>
-        </div>
-        <div class="card-body">
-          <span class="card-tag">DepEd National System</span>
-          <div class="card-title">Learner Information System (LIS)</div>
-          <p class="card-desc">
-            <!-- ✏️ LIS (Learner Information System) is DepEd's official web-based platform for managing and maintaining learner records across all public schools in the Philippines. It enables class advisers and school administrators to enroll students, track learner profiles, and generate official school forms such as the SF1 (School Register). Accessible through a secure Single Sign-On portal, LIS serves as the central database that connects schools, divisions, and the national DepEd system for accurate and up-to-date learner data management. -->
-            The official DepEd national platform for managing learner records, enrollment data, and school statistics. Used by all public school teachers and registrars for official student information management.
-          </p>
-          <div class="card-footer">
-            <span class="card-url">lis.deped.gov.ph</span>
-            <span class="card-arrow">
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </span>
-          </div>
-        </div>
-      </a>
-
-      <!-- ── CARD 7: Ependot ── -->
-      <a class="card"
-         href="https://staanadistrict.com/sanhs/login.php"
-         target="_blank" rel="noopener"
-         data-app="ependot">
-        <div class="card-thumb"
-             style="--f1:#1C6E5E; --f2:#155A4C; --f3:#0E463C;">
-          <div class="card-thumb-frames">
-            <div class="card-thumb-frame">
-              <div class="mock">
-                <div class="mock-bar full"></div>
-                <div class="mock-row">
-                  <div class="mock-block sm"></div>
-                  <div class="mock-block"></div>
-                </div>
-                <div class="mock-bar"></div>
-                <div class="mock-bar short"></div>
-              </div>
-              <span class="mock-label">Dashboard</span>
-            </div>
-            <div class="card-thumb-frame">
-              <div class="mock">
-                <div class="mock-bar"></div>
-                <div class="mock-row">
-                  <div class="mock-block"></div>
-                  <div class="mock-block sm"></div>
-                </div>
-                <div class="mock-bar full"></div>
-                <div class="mock-bar short"></div>
-              </div>
-              <span class="mock-label">Reports</span>
-            </div>
-            <div class="card-thumb-frame">
-              <div class="mock">
-                <div class="mock-bar short"></div>
-                <div class="mock-row">
-                  <div class="mock-block"></div>
-                  <div class="mock-block"></div>
-                </div>
-                <div class="mock-bar"></div>
-                <div class="mock-row">
-                  <div class="mock-block sm"></div>
-                  <div class="mock-block"></div>
-                </div>
-              </div>
-              <span class="mock-label">Data Entry</span>
-            </div>
-          </div>
-          <div class="card-thumb-overlay"><span class="launch-btn">Open Portal →</span></div>
-        </div>
-        <div class="card-body">
-          <span class="card-tag">District Platform</span>
-          <div class="card-title">Sta. Ana NHS — Ependot App</div>
-          <p class="card-desc">
-            <!-- ✏️ EPENDOT (Electronic Personalized Enhanced Data Organizing Technology) is a secure, web-based data management system developed for Sta. Ana National High School under DepEd Davao City Division. It streamlines the documentation and generation of school reports across multiple school years, with role-based access exclusively for authorized DepEd personnel. Built with AES-256 encryption and compliant with the Data Privacy Act of 2012, EPENDOT ensures that all learner and school data are handled with the highest standards of security and confidentiality. -->
-            The Sta. Ana NHS's digital platform for school data submission and reporting. SANHS teachers use this portal to submit performance data, manage reports, and coordinate with the district office.
-          </p>
-          <div class="card-footer">
-            <span class="card-url">staanadistrict.com/sanhs</span>
-            <span class="card-arrow">
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </span>
-          </div>
-        </div>
-      </a>
-
-    </div><!-- /grid partner-apps -->
+    </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
-<footer>
-  <p>
-    Built with ❤️ by <strong>Hazsher B. Munjilul</strong><br>
-    Sta. Ana National High School · DepEd Region XI, Division of Davao City<br>
-    <span style="font-size:0.72rem;">All tools are free. Developed independently for the benefit of SANHS teachers.</span>
-  </p>
-</footer>
+<script>
+  /* ════════════════════════════════════════════════════════════
+     APP DATA
+     Edit descriptions and URLs here anytime.
+  ════════════════════════════════════════════════════════════ */
+  const apps = {
+    lrhub: {
+      tag: 'Learning Resources',
+      title: 'STA. ANA NHS Learning Resource Hub',
+      desc: 'A centralized digital repository where teachers can upload, organize, and share instructional materials, modules, and references across all subject areas and grade levels.',
+      url: 'https://sanhs-lrhub.pages.dev/',
+      urlLabel: 'sanhs-lrhub.pages.dev',
+      color: '#0D2B55',
+      imgs: ['lrhub-1.webp','lrhub-2.webp','lrhub-3.webp'],
+    },
+    enrollment: {
+      tag: 'Enrollment System',
+      title: 'SMART SANHS — Digitalized Enrollment',
+      desc: 'SMART SANHS v2.0 is a powerful, user-friendly student enrollment system developed by a teacher for Sta. Ana National High School (Cluster 1, Davao City). Parents can now enroll their children from the comfort of home — no long lines, no heat exposure, and no need to take half-day leave from work. The system handles everything in one seamless platform: student registration, photo capture, ID generation, and management of 145 sections with zero data errors — all built at zero software cost.',
+      url: 'https://sanhs-enrollment-2026-production.up.railway.app/',
+      urlLabel: 'railway.app · SMART SANHS',
+      color: '#0D4325',
+      imgs: ['enrollment-1.webp','enrollment-2.webp','enrollment-3.webp'],
+    },
+    depthead: {
+      tag: 'Admin Monitoring',
+      title: 'SANHS Dept Heads Monitoring Tool',
+      desc: 'A ready-made DepEd-style instructional supervision and monitoring tool designed for Head Teachers and Department Heads to conduct daily walkthroughs. It covers four Key Result Areas (KRAs) from DepEd — not a teacher evaluation tool, but a quick-check monitoring instrument that compiles compliance data for RPMS and school quality assurance activities.',
+      url: 'https://sanhs-walkthrough.pages.dev/',
+      urlLabel: 'sanhs-walkthrough.pages.dev',
+      color: '#2A0A35',
+      imgs: ['depthead-1.webp','depthead-2.webp','depthead-3.webp'],
+    },
+    teacherhub: {
+      tag: 'All-in-One Teacher Tool',
+      title: 'TeacherHub PH — DepEd All-in-1 Tool',
+      desc: 'TeacherHub PH is an all-in-one web-based teacher\'s companion that simplifies and automates the daily workload of Filipino public school teachers. Features include Class Records with automatic grade computation (WW, PT, Term Assessment, transmutation), SF2 attendance with monthly auto-generated forms and 5-day absence alerts, MPS/Item Analysis, SF8 Health & Nutrition (with auto BMI and WHO classification), Behavior Records, and instant SF9 Report Cards. Just import your SF1 from LIS, manage multiple sections, and generate accurate grades and reports in seconds.',
+      url: 'https://teacherhub-one.vercel.app/',
+      urlLabel: 'teacherhub-one.vercel.app',
+      color: '#4A0F0A',
+      imgs: ['teacherhub-1.webp','teacherhub-2.webp','teacherhub-3.webp'],
+    },
+    ilaw: {
+      tag: 'AI-Powered Tool',
+      title: 'ILAW Lesson Plan Generator',
+      desc: 'ILAW Lesson Plan Generator is a free web app built by a teacher for fellow Filipino educators who are tired of spending hours making lesson plans after a long day at school. In just 30 seconds, it generates a complete, ready-to-use ILAW-format lesson plan — with proper English for Math, English, Science, MAPEH, and TLE/EPP, and natural Tagalog for AP, Filipino, and EsP. Every plan includes remediation and enrichment activities for differentiated instruction, plus contextualized and localized content. Simply download as a .docx file. No signup, no payment — just pure support for teachers.',
+      url: 'https://ilawlpgenerator.vercel.app/',
+      urlLabel: 'ilawlpgenerator.vercel.app',
+      color: '#3A2000',
+      imgs: ['ilaw-1.webp','ilaw-2.webp','ilaw-3.webp'],
+    },
+    lis: {
+      tag: 'DepEd National System',
+      title: 'Learner Information System (LIS)',
+      desc: 'LIS is DepEd\'s official web-based platform for managing and maintaining learner records across all public schools in the Philippines. It enables class advisers and school administrators to enroll students, track learner profiles, and generate official school forms such as the SF1 (School Register). Accessible through a secure Single Sign-On portal, LIS serves as the central database connecting schools, divisions, and the national DepEd system for accurate and up-to-date learner data management.',
+      url: 'https://lis.deped.gov.ph/uis/login',
+      urlLabel: 'lis.deped.gov.ph',
+      color: '#00154A',
+      imgs: ['lis-1.webp','lis-2.webp','lis-3.webp'],
+    },
+    ependot: {
+      tag: 'District Platform',
+      title: 'Sta. Ana NHS — Ependot App',
+      desc: 'EPENDOT (Electronic Personalized Enhanced Data Organizing Technology) is a secure, web-based data management system developed for Sta. Ana National High School under DepEd Davao City Division. It streamlines the documentation and generation of school reports across multiple school years, with role-based access exclusively for authorized DepEd personnel. Built with AES-256 encryption and compliant with the Data Privacy Act of 2012, EPENDOT ensures all learner and school data are handled with the highest standards of security and confidentiality.',
+      url: 'https://staanadistrict.com/sanhs/login.php',
+      urlLabel: 'staanadistrict.com/sanhs',
+      color: '#051A10',
+      imgs: ['ependot-1.webp','ependot-2.webp','ependot-3.webp'],
+    },
+  };
 
+  /* ════════════════════════════════
+     MODAL LOGIC
+  ════════════════════════════════ */
+  function openModal(id) {
+    const a = apps[id];
+    if (!a) return;
+
+    // Populate images
+    const imgs = ['img1','img2','img3'];
+    imgs.forEach((imgId, i) => {
+      const el = document.getElementById(imgId);
+      el.src = a.imgs[i];
+      el.alt = a.title + ' – screen ' + (i+1);
+      // Reset animation
+      el.style.animation = 'none';
+      el.offsetHeight; // reflow
+      el.style.animation = '';
+    });
+
+    // Set fallback bg color
+    document.getElementById('modal-thumb').style.setProperty('--thumb-color', a.color);
+
+    // Populate text
+    document.getElementById('modal-tag').textContent = a.tag;
+    document.getElementById('modal-title').textContent = a.title;
+    document.getElementById('modal-desc').textContent = a.desc;
+    document.getElementById('modal-url').textContent = a.urlLabel;
+    const launchBtn = document.getElementById('modal-launch');
+    launchBtn.href = a.url;
+
+    // Open
+    document.getElementById('modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+
+  // Keyboard close
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
 </body>
 </html>
