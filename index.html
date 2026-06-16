@@ -464,7 +464,7 @@
     </p>
     <div class="header-meta">
       <span>SY 2026–2027</span>
-      <span>7 Active Tools</span>
+      <span>8 Active Tools</span>
       <span>100% Free to Use</span>
     </div>
   </header>
@@ -505,7 +505,7 @@
 
     </div>
 
-    <!-- Row 2: 2 icons -->
+    <!-- Row 2: 3 icons -->
     <div class="icon-row">
 
       <!-- 4. TeacherHub PH -->
@@ -526,12 +526,21 @@
         <span class="icon-name">ILAW LP Generator</span>
       </button>
 
+      <!-- 6. MT Monitoring -->
+      <button class="icon-btn" onclick="openModal('mtmonitoring')">
+        <div class="icon-circle">
+          <!-- Star / master teacher badge icon -->
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <span class="icon-name">MT Monitoring</span>
+      </button>
+
     </div>
 
     <!-- Row 3: 2 icons -->
     <div class="icon-row">
 
-      <!-- 6. LIS -->
+      <!-- 7. LIS -->
       <button class="icon-btn" onclick="openModal('lis')">
         <div class="icon-circle">
           <!-- Database / gov icon -->
@@ -540,7 +549,7 @@
         <span class="icon-name">DepEd LIS</span>
       </button>
 
-      <!-- 7. Ependot -->
+      <!-- 8. Ependot -->
       <button class="icon-btn" onclick="openModal('ependot')">
         <div class="icon-circle">
           <!-- Shield / secure data icon -->
@@ -570,6 +579,7 @@
        depthead   → depthead-1.webp, depthead-2.webp, depthead-3.webp
        teacherhub → teacherhub-1.webp, teacherhub-2.webp, teacherhub-3.webp
        ilaw       → ilaw-1.webp, ilaw-2.webp, ilaw-3.webp
+       mtmonitoring → mtmonitoring-1.webp, mtmonitoring-2.webp, mtmonitoring-3.webp
        lis        → lis-1.webp, lis-2.webp, lis-3.webp
        ependot    → ependot-1.webp, ependot-2.webp, ependot-3.webp
      BACKGROUND:
@@ -651,6 +661,15 @@
       urlLabel: 'ilawlpgenerator.vercel.app',
       color: '#3A2000',
       imgs: ['ilaw-1.webp','ilaw-2.webp','ilaw-3.webp'],
+    },
+    mtmonitoring: {
+      tag: 'Master Teacher Tool',
+      title: 'SANHS MT Monitoring System',
+      desc: 'The SANHS MT Monitoring System is a digital tool designed to streamline the tracking and documentation of Master Teacher activities at Sta. Ana National High School. It enables Master Teachers to log mentoring sessions, classroom observations, and LAC sessions, while allowing mentees to confirm or dispute records in real time. Principals gain a comprehensive dashboard to monitor progress and generate reports — all in one secure, paperless platform.',
+      url: 'https://mt-monitoring.vercel.app/',
+      urlLabel: 'mt-monitoring.vercel.app',
+      color: '#1A0A2E',
+      imgs: ['mtmonitoring-1.webp','mtmonitoring-2.webp','mtmonitoring-3.webp'],
     },
     lis: {
       tag: 'DepEd National System',
