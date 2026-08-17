@@ -537,7 +537,7 @@
 
     </div>
 
-    <!-- Row 3: 2 icons -->
+    <!-- Row 3: 3 icons -->
     <div class="icon-row">
 
       <!-- 7. ExplainHub -->
@@ -549,7 +549,30 @@
         <span class="icon-name">ExplainHub</span>
       </button>
 
-      <!-- 8. LIS -->
+      <!-- 8. TOS AI Generator -->
+      <button class="icon-btn" onclick="openModal('tosai')">
+        <div class="icon-circle">
+          <!-- Table / spec-grid with spark (TOS blueprint + AI) icon -->
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/><path d="M17.5 12.5l.7 1.6 1.6.7-1.6.7-.7 1.6-.7-1.6-1.6-.7 1.6-.7z"/></svg>
+        </div>
+        <span class="icon-name">TOS AI Generator</span>
+      </button>
+
+      <!-- 9. SANHS SMART Pass -->
+      <button class="icon-btn" onclick="openModal('smartpass')">
+        <div class="icon-circle">
+          <!-- QR scan / gate pass icon -->
+          <svg viewBox="0 0 24 24"><path d="M3 7V4a1 1 0 011-1h3M17 3h3a1 1 0 011 1v3M21 17v3a1 1 0 01-1 1h-3M7 21H4a1 1 0 01-1-1v-3"/><rect x="7" y="7" width="4" height="4"/><rect x="13" y="7" width="4" height="4"/><rect x="7" y="13" width="4" height="4"/><path d="M14 15h1.5v1.5M17 13.5h1M13.5 17v1"/></svg>
+        </div>
+        <span class="icon-name">SANHS SMART Pass</span>
+      </button>
+
+    </div>
+
+    <!-- Row 4: 2 icons — external DepEd tools, kept last as they are not Sta. Ana Innovations builds -->
+    <div class="icon-row">
+
+      <!-- 10. LIS -->
       <button class="icon-btn" onclick="openModal('lis')">
         <div class="icon-circle">
           <!-- Database / gov icon -->
@@ -558,27 +581,13 @@
         <span class="icon-name">DepEd LIS</span>
       </button>
 
-      <!-- 9. Ependot -->
+      <!-- 11. Ependot -->
       <button class="icon-btn" onclick="openModal('ependot')">
         <div class="icon-circle">
           <!-- Shield / secure data icon -->
           <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
         </div>
         <span class="icon-name">Ependot App</span>
-      </button>
-
-    </div>
-
-    <!-- Row 4: 1 icon -->
-    <div class="icon-row">
-
-      <!-- 10. TOS AI Generator -->
-      <button class="icon-btn" onclick="openModal('tosai')">
-        <div class="icon-circle">
-          <!-- Table / spec-grid with spark (TOS blueprint + AI) icon -->
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/><path d="M17.5 12.5l.7 1.6 1.6.7-1.6.7-.7 1.6-.7-1.6-1.6-.7 1.6-.7z"/></svg>
-        </div>
-        <span class="icon-name">TOS AI Generator</span>
       </button>
 
     </div>
@@ -607,6 +616,7 @@
        lis        → lis-1.webp, lis-2.webp, lis-3.webp
        ependot    → ependot-1.webp, ependot-2.webp, ependot-3.webp
        tosai      → tosai-1.webp, tosai-2.webp, tosai-3.webp
+       smartpass  → smartpass-1.webp, smartpass-2.webp, smartpass-3.webp
      BACKGROUND:
        Rename your green design file to "bg.webp"
 ════════════════════════════════════════════════════════════ -->
@@ -731,6 +741,15 @@
       urlLabel: 'tos-ai-generator.vercel.app',
       color: '#0A2E1A',
       imgs: ['tosai-1.webp','tosai-2.webp','tosai-3.webp'],
+    },
+    smartpass: {
+      tag: 'Gate Security · QR-Based',
+      title: 'SANHS SMART Pass — Gate Pass Monitoring System',
+      desc: 'SANHS SMART Pass digitizes the school\'s gate logbook with QR-code scanning. Guards scan staff IDs to record time-out and time-in in seconds, admins manage personnel records and configurable out-reasons (OB, OT, ICM, etc.), and principals and school heads get a live, read-only dashboard. Role-based access keeps each user seeing only what they need.',
+      url: 'https://sanhs-smartpass.vercel.app/',
+      urlLabel: 'sanhs-smartpass.vercel.app',
+      color: '#0A3A4A',
+      imgs: ['smartpass-1.webp','smartpass-2.webp','smartpass-3.webp'],
     },
   };
 
