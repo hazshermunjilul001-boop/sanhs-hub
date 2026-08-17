@@ -464,7 +464,7 @@
     </p>
     <div class="header-meta">
       <span>SY 2026–2027</span>
-      <span>11 Active Tools</span>
+      <span>10 Active Tools</span>
       <span>100% Free to Use</span>
     </div>
   </header>
@@ -569,10 +569,19 @@
 
     </div>
 
-    <!-- Row 4: 2 icons — external DepEd tools, kept last as they are not Sta. Ana Innovations builds -->
+    <!-- Row 4: 3 icons — Quizcade, then external DepEd tools kept last -->
     <div class="icon-row">
 
-      <!-- 10. LIS -->
+      <!-- 10. Quizcade -->
+      <button class="icon-btn" onclick="openModal('quizcade')">
+        <div class="icon-circle">
+          <!-- Game controller / quiz icon -->
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10v4M5 12h4"/><circle cx="16" cy="10.5" r="1"/><circle cx="18.5" cy="13" r="1"/></svg>
+        </div>
+        <span class="icon-name">Quizcade</span>
+      </button>
+
+      <!-- 11. LIS -->
       <button class="icon-btn" onclick="openModal('lis')">
         <div class="icon-circle">
           <!-- Database / gov icon -->
@@ -581,7 +590,7 @@
         <span class="icon-name">DepEd LIS</span>
       </button>
 
-      <!-- 11. Ependot -->
+      <!-- 12. Ependot -->
       <button class="icon-btn" onclick="openModal('ependot')">
         <div class="icon-circle">
           <!-- Shield / secure data icon -->
@@ -617,6 +626,7 @@
        ependot    → ependot-1.webp, ependot-2.webp, ependot-3.webp
        tosai      → tosai-1.webp, tosai-2.webp, tosai-3.webp
        smartpass  → smartpass-1.webp, smartpass-2.webp, smartpass-3.webp
+       quizcade   → quizcade-1.webp, quizcade-2.webp, quizcade-3.webp
      BACKGROUND:
        Rename your green design file to "bg.webp"
 ════════════════════════════════════════════════════════════ -->
@@ -746,10 +756,19 @@
       tag: 'Gate Security · QR-Based',
       title: 'SANHS SMART Pass — Gate Pass Monitoring System',
       desc: 'SANHS SMART Pass digitizes the school\'s gate logbook with QR-code scanning. Guards scan staff IDs to record time-out and time-in in seconds, admins manage personnel records and configurable out-reasons (OB, OT, ICM, etc.), and principals and school heads get a live, read-only dashboard. Role-based access keeps each user seeing only what they need.',
-      url: 'https://sanhs-smartpass.vercel.app/',
-      urlLabel: 'sanhs-smartpass.vercel.app',
+      url: 'PASTE_SMART_PASS_URL_HERE',
+      urlLabel: 'PASTE_SMART_PASS_URL_HERE',
       color: '#0A3A4A',
       imgs: ['smartpass-1.webp','smartpass-2.webp','smartpass-3.webp'],
+    },
+    quizcade: {
+      tag: 'Quiz-Games App',
+      title: 'Quizcade — Turn Quizzes into Classroom Games',
+      desc: 'Quizcade turns any multiple-choice test into 22 interactive classroom games in under a minute. Built free for DepEd teachers — just paste or upload your quiz (text, .docx, .pdf, or a TOS AI Generator export) and the app automatically generates review, word, and action games. Share a link with students — no accounts needed.',
+      url: 'https://quiz-games-app.vercel.app/',
+      urlLabel: 'quiz-games-app.vercel.app',
+      color: '#4A1030',
+      imgs: ['quizcade-1.webp','quizcade-2.webp','quizcade-3.webp'],
     },
   };
 
