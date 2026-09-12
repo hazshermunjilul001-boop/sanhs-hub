@@ -464,7 +464,7 @@
     </p>
     <div class="header-meta">
       <span>SY 2026–2027</span>
-      <span>10 Innovative Tools + 2 subscribed tools</span>
+      <span>11 Innovative Tools + 2 subscribed tools</span>
       <span>100% Free to Use</span>
     </div>
   </header>
@@ -581,7 +581,21 @@
         <span class="icon-name">Quizcade</span>
       </button>
 
-      <!-- 11. LIS -->
+      <!-- 11. SANHS SubPlan -->
+      <button class="icon-btn" onclick="openModal('subplan')">
+        <div class="icon-circle">
+          <!-- Calendar / coverage check icon -->
+          <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 9h16"/><path d="m8 14 2 2 5-5"/></svg>
+        </div>
+        <span class="icon-name">SANHS SubPlan</span>
+      </button>
+
+    </div>
+
+    <!-- Row 6: external DepEd tools — always kept last -->
+    <div class="icon-row">
+
+      <!-- 12. LIS -->
       <button class="icon-btn" onclick="openModal('lis')">
         <div class="icon-circle">
           <!-- Database / gov icon -->
@@ -590,7 +604,7 @@
         <span class="icon-name">DepEd LIS</span>
       </button>
 
-      <!-- 12. Ependot -->
+      <!-- 13. Ependot -->
       <button class="icon-btn" onclick="openModal('ependot')">
         <div class="icon-circle">
           <!-- Shield / secure data icon -->
@@ -770,6 +784,15 @@
       color: '#4A1030',
       imgs: ['quizcade-1.webp','quizcade-2.webp','quizcade-3.webp'],
     },
+    subplan: {
+      tag: 'School Operations · Substitution Planning',
+      title: 'SANHS SubPlan — Teacher Substitution Planning System',
+      desc: 'SANHS SubPlan is a centralized web application built to make teacher substitution and class coverage easier to coordinate at Sta. Ana National High School. Instead of searching through separate schedules, messages, and paper records, school coordinators and administrators can use one system to identify qualified substitutes, review the affected class program, and keep coverage information current. The app organizes schedules by grade level and section, presents class periods in a clear day-and-time sequence, and supports the school campuses of Suazo, Sales, and Guerrero for Grades 7–10. It also helps staff prepare a signed-ready coverage letter, giving the substitute and school office a clear record of the arrangement. By bringing substitute matching, schedule checking, and coverage documentation into one place, SANHS SubPlan reduces coordination time and helps classes continue smoothly when a teacher is absent.',
+      url: 'https://sanhs-subplan.vercel.app/',
+      urlLabel: 'sanhs-subplan.vercel.app',
+      color: '#06351A',
+      imgs: ['subplan-1.webp','subplan-2.webp','subplan-3.webp'],
+    },
   };
 
   /* ════════════════════════════════
@@ -824,3 +847,5 @@
 <script src="feedback-widget.js"></script>
 </body>
 </html>
+       subplan    → subplan-1.webp, subplan-2.webp, subplan-3.webp
+       subplan    → subplan-1.webp, subplan-2.webp, subplan-3.webp
